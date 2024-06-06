@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Моё резюме</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style>
+        .invalid {
+            border-color: red !important;
+            box-shadow: none !important;
+        }
+        .message {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .my-button {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body style="background-color: rgba(66, 66, 189, 0.793);">
+<img src="https://fs.mtgame.ru/DFAC303D-043B-4419-9086-C5FD520CDA38.jpeg" style="width: 300px; height: 300px; border-radius: 50%; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);">
+<h>
+<b>
+<font size=5 >
+Моё фото
+</font>
+</b>
+</h>
+
+    <div class="row">
+        <div class="col s4">
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+<hr>
+<hr color=black>
+                        <div class="input-field col s12">
+                            <input id="name" type="text" class="validate" oninput="validateName()" pattern="[А-Яа-яЁё\s]+" title="Введите только буквы">
+                            <label for="name">Имя</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="surname" type="text" class="validate" pattern="[А-Яа-яЁё\s]+" title="Введите только буквы">
+                            <label for="surname">Фамилия</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="age" type="text" class="validate" oninput="validateAge()" pattern="\d+" title="Введите только цифры">
+                            <label for="age">Возраст</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="sex" type="text" class="validate" pattern="[МЖмж]" title="Введите 'М', 'Ж', 'м' или 'ж'" oninput="validateSex()">
+                            <label for="sex">Пол (М/Ж)</label>
+                        </div>
+                    </div>
+                    <p>
+                        <label>
+                            <input type="checkbox" id="education" onclick="toggleHireButton()">
+                            <span>Высшее образование</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input type="checkbox" id="mathematic" onclick="toggleHireButton()">
+                            <span>Знание математики</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input type="checkbox" id="asu" onclick="toggleHireButton()">
+                            <span>Знание АСУ ТП</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input type="checkbox" id="cutting" onclick="toggleHireButton()">
+                            <span>Знание теории резания</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input type="checkbox" id="programming" onclick="toggleHireButton()">
+                            <span>Знание программирования</span>
+                        </label>
+                    </p>
+                    <p id="startTest" class="my-button">
+                        <b>Заполнить анкету</b>
+                    </p>
+                    <div id="div1"></div>
+                    <button id="hireButton" class="btn" style="display:none;" type="button" onclick="lockForm()">Меня возьмут</button>
+                    <div id="resultMessage" class="message"></div>
+                </form>
+            </div>
+            <h4>
+ <button class="btn btn-default btn-flat waves-effect btn--1" onclick="window.location.href = 'ind1.HTML';">Перейти на №1</button>
+           <button class="btn btn-default btn-flat waves-effect btn--1" onclick="window.location.href = 'ind2.HTML';">Перейти на №2</button>
+           <button class="btn btn-default btn-flat waves-effect btn--1" onclick="window.location.href = 'ind3.HTML';">Перейти на №3</button></h4>
+<hr>
+<hr color=black>
+        </div>
+        <div class="col s8">
+
+        </div>
+    </div>
+
+    <!-- Import jQuery and Materialize.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            M.AutoInit();
+        });
+
+        function validateName() {
+            let nameInput = document.getElementById("name");
+            if (/[^\p{L}\s]/u.test(nameInput.value)) {
+                nameInput.classList.add('invalid');
+            } else {
+                nameInput.classList.remove('invalid');
+            }
+            toggleHireButton();
+        }
+
+        function validateAge() {
+            let ageInput = document.getElementById("age");
+            if (!/^\d+$/.test(ageInput.value)) {
+                ageInput.classList.add('invalid');
+            } else {
+                ageInput.classList.remove('invalid');
+            }
+            toggleHireButton();
+        }
+
+        function validateSex() {
+            let sexInput = document.getElementById("sex");
+            let sexValue = sexInput.value.trim().toUpperCase();
+            if (sexValue === "М" || sexValue === "Ж" || sexValue === "м" || sexValue === "ж") {
+                sexInput.classList.remove('invalid');
+            } else {
+                sexInput.classList.add('invalid');
+            }
+            toggleHireButton();
+        }
+
+        function validateForm() {
+            let name = document.getElementById("name").value.trim();
+            let surname = document.getElementById("surname").value.trim();
+            let age = document.getElementById("age").value.trim();
+            let sex = document.getElementById("sex").value.trim().toUpperCase();
+            let education = document.getElementById("education").checked;
+            let mathematic = document.getElementById("mathematic").checked;
+            let asu = document.getElementById("asu").checked;
+            let cutting = document.getElementById("cutting").checked;
+            let programming = document.getElementById("programming").checked;
+
+            let isCheckboxChecked = education || mathematic || asu || cutting || programming;
+
+            return name !== "" && !/[^\p{L}\s]/u.test(name) &&
+                   surname !== "" && !/[^\p{L}\s]/u.test(surname) &&
+                   age !== "" && /^\d+$/.test(age) &&
+                   (sex === "М" || sex === "Ж" || sex === "м" || sex === "ж") && isCheckboxChecked;
+        }
+
+        function toggleHireButton() {
+            if (validateForm()) {
+                document.getElementById("hireButton").style.display = "block";
+            } else {
+                document.getElementById("hireButton").style.display = "none";
+            }
+        }
+        function lockForm() {
+            let inputs = document.querySelectorAll('input[type="text"], input[type="checkbox"]');
+            inputs.forEach(input => {
+                input.disabled = true;
+            });
+            document.getElementById("hireButton").disabled = true;
+            document.getElementById("startTest").style.display = "none";
+
+            // Проверяем состояние чекбоксов высшего образования и знания АСУ ТП
+            let education = document.getElementById("education").checked;
+            let asu = document.getElementById("asu").checked;
+            let resultMessage = document.getElementById("resultMessage");
+            if (education && asu) {
+                resultMessage.textContent = 'Вы нам подходите';
+                resultMessage.style.color = 'blue';
+            } else {
+                resultMessage.textContent = 'Мы вам перезвоним';
+                resultMessage.style.color = 'black';
+            }
+        }
+    </script>
+
+</body>
+</html>

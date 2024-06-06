@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: cursive;
+            background-color: #000000;
+            margin: 0;
+            padding: 20px;
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        input[type="number"], button, .carousel-button {
+            width: calc(100% - 5px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .carousel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .carousel-button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 50px;
+            
+        }
+        .carousel-button:hover {
+            background-color: #0056b3;
+        }
+        .operation {
+            flex: 1;
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>Calculat0r</h1>
+        <input type="number" id="num1" placeholder="first number">
+        <div class="carousel">
+            <button class="carousel-button" onclick="prevOperation()">&#10094;</button>
+            <div id="operation" class="operation">+</div>
+            <button class="carousel-button" onclick="nextOperation()">&#10095;</button>
+        </div>
+        <input type="number" id="num2" placeholder="Second number">
+        <button onclick="calculate()">calculate</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const operations = ['+', '-', '*', '/'];
+        let currentOperationIndex = 0;
+
+        function prevOperation() {
+            currentOperationIndex = (currentOperationIndex > 0) ? currentOperationIndex - 1 : operations.length - 1;
+            document.getElementById('operation').innerText = operations[currentOperationIndex];
+        }
+
+        function nextOperation() {
+            currentOperationIndex = (currentOperationIndex < operations.length - 1) ? currentOperationIndex + 1 : 0;
+            document.getElementById('operation').innerText = operations[currentOperationIndex];
+        }
+
+        function calculate() {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            const operation = operations[currentOperationIndex];
+            let result;
+
+            if (isNaN(num1) || isNaN(num2)) {
+                alert('Пожалуйста, введите оба числа');
+                return;
+            }
+
+            switch (operation) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    if (num2 === 0) {
+                        alert('division by zero is not possible');
+                        return;
+                    }
+                    result = num1 / num2;
+                    break;
+            }
+
+            document.getElementById('result').innerText = 'Result: ' + result;
+        }
+    </script>
+
+</body>
+</html>
